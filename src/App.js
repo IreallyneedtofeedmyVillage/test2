@@ -14,6 +14,7 @@ const App = () => {
     const getTasks = async () => {
       const tasksFromServer = await fetchTasks()
       setTasks(tasksFromServer)
+
     }
 
     getTasks()
@@ -23,7 +24,7 @@ const App = () => {
   const fetchTasks = async () => {
     const res = await fetch('http://localhost:5000/tasks')
     const data = await res.json()
-
+    console.log('loading tasks from database');
     return data
   }
 
@@ -44,7 +45,6 @@ const App = () => {
       },
       body: JSON.stringify(task),
     })
-
     const data = await res.json()
 
     setTasks([...tasks, data])
@@ -67,6 +67,7 @@ const App = () => {
 
   // Toggle Reminder
   const toggleReminder = async (id) => {
+     
     const taskToToggle = await fetchTask(id)
     const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
 
